@@ -3,25 +3,7 @@
 #include <ifaddrs.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
-#include <stdio.h>
 #include <string.h>
-
-void printSubnetMask() {
-	struct ifaddrs *ifap, *ifa;
-	struct sockaddr_in *sa;
-	char *addr;
-
-	getifaddrs (&ifap);
-    for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
-        if (ifa->ifa_addr->sa_family==AF_INET) {
-            sa = (struct sockaddr_in *) ifa->ifa_netmask;
-            addr = inet_ntoa(sa->sin_addr);
-            printf("Interface: %s\tAddress: %s\n", ifa->ifa_name, addr);
-        }
-    }
-
-    freeifaddrs(ifap);
-}
 
 int getSubnetMask(char *outBuf, size_t bufSize) {
 	struct ifaddrs *ifap, *ifa;
